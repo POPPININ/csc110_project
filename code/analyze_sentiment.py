@@ -1,51 +1,24 @@
 """
-This file performs the following tasks:
+This file contains helper functions which perform the following tasks:
 
-1. Tokenize the given piece of text (based on a news article, opinion piece, column etc.)
-into sentences.
+1. Reading processed CSV data and,
 
-2. Use NLTK's VADER SentimentIntensityAnalyzer to assess the polarity of each sentence.
-
-3. Calculating the overall sentiment of the article by averaging the score assigned to each
-sentence.
+2. Tokenizing a given article and gauging overall sentiment (by averaging the polarity of each sentence in
+the article).
 """
 from nltk.tokenize import sent_tokenize
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-import csv
 
 
-def read_csv(file_path: str) -> dict:
-    """Open and read a CSV file into a Python dictionary."""
-    csv_file = None
-    with open(file_path, mode ='r')as file: 
-        csv_file = csv.reader(file) 
-        for lines in csv_file: 
-            print(lines)
-
-
-def read_text_file(file_path: str) -> str:
-    """Open and read a .txt file into a String object."""
-    article = []
-    with open(file_path) as f:
-        article = f.readlines()
-    
-    return article
-
-
-def calculate_polarity(text: str) -> float:
-    """Given a piece of text, calculate the sum total of the polarity of
-    each sentence comprising the text, and return the mean."""
+def calculate_average_polarity(text: str) -> float:
+    """Given a piece of text, tokenize the text into sentences and compute the 
+    mean polarity of each sentence."""
     tokens = sent_tokenize(text)
     sum_so_far = 0
 
     for token in tokens:
         analyzer = SentimentIntensityAnalyzer()
         scores = analyzer.polarity_scores(token)
-        sum_so_far += scores['compound']  # Compound score reprsentes overall polarity of sentebce,
+        sum_so_far += scores['compound']  # Compound score reprsentes overall polarity of sentence,
     
-    return sum_so_far / len(tokens)
-
-read_csv("../data/dataset.csv")
-
-
-    
+    return sum_so_far / len(tokens)  # Return the average polarity of a sentence (thus the article)
