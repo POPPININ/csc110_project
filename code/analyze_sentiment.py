@@ -9,13 +9,9 @@ into sentences.
 3. Calculating the overall sentiment of the article by averaging the score assigned to each
 sentence.
 """
-from nltk import tokenize
 from nltk.tokenize import sent_tokenize
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import csv
-
-
-SAMPLE_TEXT = 'The COVID-19 Pandemic has left the common citizen startled. It has caused great damage to the economy.'
 
 
 # TODO: Fix the CSV files so that there are no errors while opening the file
@@ -50,7 +46,7 @@ def calculate_polarity(text: str) -> float:
     
     return sum_so_far / len(tokens)
 
-
+read_csv("../data/dataset.csv")
 
 
     
