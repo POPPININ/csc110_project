@@ -14,7 +14,6 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import csv
 
 
-# TODO: Fix the CSV files so that there are no errors while opening the file
 def read_csv(file_path: str) -> dict:
     """Open and read a CSV file into a Python dictionary."""
     csv_file = None
