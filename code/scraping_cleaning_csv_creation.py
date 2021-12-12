@@ -1,9 +1,11 @@
 """
 Creates a CSV file containing data scraped from news articles. Scrapes websites using NewsPlease,
 cleans the maintext, and creates the csv file.
+
 Copyright and Usage Information
 ===============================
 Code by Anna Myllyniemi December 2021
+
 """
 from newsplease import NewsPlease
 import csv
@@ -68,27 +70,37 @@ def clean_text(articles: dict) -> None:
             clean = articles[key].maintext
 
         title = articles[key].title
+        description = articles[key].description
+
+        clean = clean.replace(title, '')  # remove occurences of title in text
+
+        if description is not None:
+            clean = clean.replace(description, '')  # remove description from maintext
 
         # loop through the list of strings to remove
         for r in remove:
             clean = clean.replace(r, '')
 
-        clean = clean.replace('’', '\'')  # replace apostrophes with single quotation
-
-        clean = clean.replace(title.replace('’', '\''), '')  # remove occurences of title in text
-
         # if '\n\n' in clean:
         #     clean = clean[0: clean.rfind('\n\n') + 1]  # remove blurb at end regarding subscriptions
 
+        clean = fix_unicode(clean)
+
         clean = ' '.join(clean.split())  # replace multiple whitespaces with a single whitespace
 
-        clean = clean.replace('\n\n', '\n')  # replace two newlines with one newline
-
-        clean = clean.replace('“', '\"')  # replace double quotes with escaped double quotes
-
-        clean = clean.replace('”', '\"')  # replace double quotes with escaped double quotes
-
         articles[key].maintext = clean  # mutate articles dictionary
+
+def fix_unicode(text: str) -> str:
+    """ Clean characters """
+    clean = text.replace('’', '\'')  # replace apostrophes with single quotation
+    clean = clean.replace('\n\n', '\n')  # replace two newlines with one newline
+    clean = clean.replace('“', '\"')  # replace double quotes with escaped double quotes
+    clean = clean.replace('”', '\"')  # replace double quotes with escaped double quotes
+    clean = clean.replace('—', '-')
+    clean = clean.replace('–', '-')
+    clean = clean.replace('é', 'e')
+
+    return clean
 
 
 if __name__ == '__main__':
