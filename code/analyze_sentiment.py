@@ -1,12 +1,13 @@
 """
-Tokenizing a given article and gauging overall sentiment (by averaging the polarity of each sentence in
-the article). Implementation leverages the NLTK library, and a modified version of the VADER analysis
-tool.
+Tokenizing a given article and gauging overall sentiment (by averaging the polarity of
+each sentence in the article). Implementation leverages the NLTK library, and a modified
+version of the VADER analysis tool.
 
 
---------------
+Copyright and Usage Information
+===============================
 Code by Raghav Arora, December 2021
---------------
+
 
 ------------------------------------
 Copyright (C) 2001-2021 NLTK Project
@@ -42,3 +43,24 @@ def calculate_average_polarity(text: str) -> float:
         sum_so_far += scores['compound']  # Compound score reprsentes overall polarity of sentence,
 
     return sum_so_far / len(tokens)  # Return the average polarity of a sentence (thus the article)
+
+
+if __name__ == '__main__':
+    import python_ta
+    import doctest
+    import python_ta.contracts
+
+    doctest.testmod()
+    python_ta.contracts.DEBUG_CONTRACTS = False
+    python_ta.contracts.check_all_contracts()
+
+    # When you are ready to check your work with python_ta, uncomment the following lines.
+    # (Delete the "#" and space before each line.)
+    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
+    python_ta.check_all(config={
+        'allowed-io': ['run_example'],
+        'extra-imports': ['python_ta.contracts', 'nltk.tokenize', 'nltk.sentiment.vader'],
+        'max-line-length': 100,
+        'max-nested-blocks': 4,
+        'disable': ['R1705', 'C0200']
+    })

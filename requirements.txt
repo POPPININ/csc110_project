@@ -1,3 +1,13 @@
+# sentiment analysis
 nltk
+
+# web scraping
 news-please
+
+# visualization and processing
 plotly
+pandas
+
+# Testing and code checking
+pytest
+python-ta

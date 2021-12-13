@@ -17,16 +17,14 @@ analyzed_articles.py
 Federal COVID-19 policies etc.), sort articles belonging to each theme by date published, and presenting
 our findings using Plotly.
 
-------------------------------------------------------------------------
+
+Copyright and Usage Information
+===============================
 Code by Anna Myllyniemi, Raghav Arora, Aarya Vatsa and Diva Hidalgo Luna
-------------------------------------------------------------------------
 """
 import pandas as pd
-import plotly
 import plotly.io as pio
 import plotly.express as px
-
-
 from create_dataset import create_dataset
 from csv_read_write import read_file, write_file
 
@@ -43,9 +41,7 @@ articles = read_file('../data/dataset.csv')  # Load cleaned and processed data i
 articles.run_sentiment()  # Perform sentiment analysis on each article
 write_file(articles, '../data/analyzed_articles.csv')  # save the analyzed articles
 
-print(articles._articles)
-
-# put code here to run graphing files
+# read analyzed articles into a data frame
 df = pd.read_csv('../data/analyzed_articles.csv')
 
 # VACCINE PLOT
