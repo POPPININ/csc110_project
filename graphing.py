@@ -3,7 +3,8 @@ Drawing a graph from a given csv filepath with optional keyword for filtering th
 This file uses pandas for csv reading and manipulation, and plotly.express and plotly.io for creating
 and displaying the graph, respectively.
 
-Optional: statsmodel.api for showing regression lines on the graph.
+Optional: statsmodel.api for showing regression lines on the graph. You can uncomment the trendline
+in the scatterplot = px.scatter{} block to see.
 
 Copyright and Usage Information
 --------------
@@ -30,22 +31,22 @@ URL: <https://plot.ly>
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
-# install statsmodel in order to use the regression lines
 
 
 def draw_graph(filepath: str, keyword: str) -> None:
-    """Draw graph."""
+    """Draw graph from a csv with the given filepath, and filtered with keyword. The keyword
+    might be an empty string, in which case the graph shows all articles found in the csv."""
 
     df = pd.read_csv(filepath)
-    df['date_publish'] = pd.to_datetime(df['date_publish'], format='%Y-%m-%d')  # to sort x-axis by date
+    df['date_publish'] = pd.to_datetime(df['date_publish'])  # to sort x-axis by date
     title = 'Article Polarity over Time'
 
     if keyword != '':
         title = f'{title}: Filtered for \'{keyword}\''
 
-        df = df[df['maintext'].str.contains(keyword)]
+        df = df[df['maintext'].str.contains(keyword)]  # filtered df
         url_key = keyword.lower()
-        pub_df = df[df['url'].str.contains(url_key.replace(' ', ''))]  # for checking publication
+        pub_df = df[df['url'].str.contains(url_key.replace(' ', ''))]  # for checking publications
         df.append(pub_df)
 
     scatterplot = px.scatter(
