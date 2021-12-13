@@ -1,2 +1,3 @@
 nltk
 news-please
+plotly

@@ -1,51 +1,44 @@
 """
-This file performs the following tasks:
+Tokenizing a given article and gauging overall sentiment (by averaging the polarity of each sentence in
+the article). Implementation leverages the NLTK library, and a modified version of the VADER analysis
+tool.
 
-1. Tokenize the given piece of text (based on a news article, opinion piece, column etc.)
-into sentences.
 
-2. Use NLTK's VADER SentimentIntensityAnalyzer to assess the polarity of each sentence.
+--------------
+Code by Raghav Arora, December 2021
+--------------
 
-3. Calculating the overall sentiment of the article by averaging the score assigned to each
-sentence.
+------------------------------------
+Copyright (C) 2001-2021 NLTK Project
+------------------------------------
+Author: C.J. Hutto <Clayton.Hutto@gtri.gatech.edu>
+        Ewan Klein <ewan@inf.ed.ac.uk> (modifications)
+        Pierpaolo Pantone <24alsecondo@gmail.com> (modifications)
+        George Berry <geb97@cornell.edu> (modifications)
+        Malavika Suresh <malavika.suresh0794@gmail.com> (modifications)
+URL: <https://www.nltk.org/>
+
+------------------------
+VADER Sentiment Analyzer
+------------------------
+
+Hutto, C.J. & Gilbert, E.E. (2014). VADER: A Parsimonious Rule-based Model for
+Sentiment Analysis of Social Media Text. Eighth International Conference on
+Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014.
 """
 from nltk.tokenize import sent_tokenize
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-import csv
 
 
-def read_csv(file_path: str) -> dict:
-    """Open and read a CSV file into a Python dictionary."""
-    csv_file = None
-    with open(file_path, mode ='r')as file: 
-        csv_file = csv.reader(file) 
-        for lines in csv_file: 
-            print(lines)
-
-
-def read_text_file(file_path: str) -> str:
-    """Open and read a .txt file into a String object."""
-    article = []
-    with open(file_path) as f:
-        article = f.readlines()
-    
-    return article
-
-
-def calculate_polarity(text: str) -> float:
-    """Given a piece of text, calculate the sum total of the polarity of
-    each sentence comprising the text, and return the mean."""
+def calculate_average_polarity(text: str) -> float:
+    """Given a piece of text, tokenize the text into sentences and compute the
+    mean polarity of each sentence."""
     tokens = sent_tokenize(text)
     sum_so_far = 0
 
     for token in tokens:
         analyzer = SentimentIntensityAnalyzer()
         scores = analyzer.polarity_scores(token)
-        sum_so_far += scores['compound']  # Compound score reprsentes overall polarity of sentebce,
-    
-    return sum_so_far / len(tokens)
+        sum_so_far += scores['compound']  # Compound score reprsentes overall polarity of sentence,
 
-read_csv("../data/dataset.csv")
-
-
-    
+    return sum_so_far / len(tokens)  # Return the average polarity of a sentence (thus the article)
