@@ -61,7 +61,7 @@ scatterplot = px.scatter(
     hover_data=['url', 'source_domain'],
 
     range_y=['March 2020', 'December 2021'],
-    title='Vaccine Keyword Scatterplot'
+    title="'Vaccine' Keyword Scatterplot"
 )
 
 pio.show(scatterplot)
@@ -79,7 +79,7 @@ scatterplot = px.scatter(
     hover_data=['url', 'source_domain'],
 
     range_y=['March 2020', 'December 2021'],
-    title='Mask Keyword Scatterplot'
+    title="'Mask' Keyword Scatterplot"
 )
 
 pio.show(scatterplot)
@@ -97,7 +97,7 @@ scatterplot = px.scatter(
     hover_data=['url', 'source_domain'],
 
     range_y=['March 2020', 'December 2021'],
-    title='Mandate Keyword Scatterplot'
+    title="'Mandate' Keyword Scatterplot"
 )
 
 pio.show(scatterplot)
@@ -115,7 +115,7 @@ scatterplot = px.scatter(
     hover_data=['url', 'source_domain'],
 
     range_y=['March 2020', 'December 2021'],
-    title='Restriction Keyword Scatterplot'
+    title="'Restriction' Keyword Scatterplot"
 )
 
 pio.show(scatterplot)
@@ -133,7 +133,7 @@ scatterplot = px.scatter(
     hover_data=['url', 'source_domain'],
 
     range_y=['March 2020', 'December 2021'],
-    title='Border Closure Keyword Scatterplot'
+    title="'Border' Closure Keyword Scatterplot"
 )
 
 pio.show(scatterplot)
