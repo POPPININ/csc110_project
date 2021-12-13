@@ -2,7 +2,8 @@
 Dataclass representation of the news articles and opinion pieces
 analyzed in our project.
 
-code by anna and raghav
+-----------------------
+Code by Anna Myllyniemi and Raghav Arora, December 2021
 """
 from datetime import datetime
 from dataclasses import dataclass
@@ -17,8 +18,11 @@ class Article:
     Instance Attributes:
        - title: The title of the article/OPed
        - date_published: The date the given article/OPed was published
-       - authors: the name of the author(s)
+       - authors: the name of the author(s) (as a list)
        - main_text: the actual content of the article/OPed
+       - source_domain: the source of news article/OPed
+       - url: the URL of the article
+       - description: brief description of the news article/OPed
        - average_sentence_polarity: the average polarity of the article based on the mean of the
        polarity of each sentence in the article.
     """
@@ -36,29 +40,29 @@ class Articles:
     """Key-value mapping of Article Title and Author(s) to the corresponding Article object.
 
     Instance Attributes:
-       - articles: a dictionary containing key-value mappings of (title, authors) to Article
+       - articles: a dictionary containing key-value mappings of title to Article
        objects.
     """
     _articles: dict[str, Article]
 
     def __init__(self) -> None:
-        """Initialises an empty Articles object"""
+        """Initialises an empty Articles object."""
         self._articles = {}
 
-    def add_article(self, article: Article):
-        """Add article to _articles dictionary"""
+    def add_article(self, article: Article) -> None:
+        """Add article to _articles dictionary."""
         self._articles[article.title] = article
 
     def get_keys(self) -> set[str]:
-        """Return keys of _articles"""
+        """Return keys of _articles."""
         return set(self._articles.keys())
 
     def get_article(self, key: str) -> Article:
-        """Return the Article instance corresponding to key"""
+        """Return the Article instance corresponding to key."""
         return self._articles[key]
 
     def run_sentiment(self) -> None:
-        """ Add docstring"""
+        """Compute and assign the polarity of the average sentence in each Article."""
         for key in self._articles:
             self._articles[key].average_sentence_polarity = \
                 calculate_average_polarity(self._articles[key].main_text)

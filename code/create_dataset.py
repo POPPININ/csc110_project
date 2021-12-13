@@ -4,8 +4,7 @@ cleans the maintext, and creates the csv file.
 
 Copyright and Usage Information
 ===============================
-Code by Anna Myllyniemi December 2021
-
+Code by Anna Myllyniemi, December 2021
 """
 import datetime
 from newsplease import NewsPlease
@@ -13,14 +12,14 @@ from csv_read_write import write_file
 from article_classes import Article, Articles
 
 
-def create_dataset() -> None:
+def create_dataset(links_path, dataset_save_path) -> None:
     """Calling this function from main.py calls all the necessary functions to scrape the news
     articles, clean the data, run sentiment analysis, and create the csv file."""
-    scraped_arts = NewsPlease.from_file('links.txt')
+    scraped_arts = NewsPlease.from_file(links_path)
     articles = setup_articles(scraped_arts)
     clean_dataset(articles)
     articles.run_sentiment()
-    write_file(articles)
+    write_file(articles, dataset_save_path)
 
 
 def setup_articles(scraped_articles: dict) -> Articles:

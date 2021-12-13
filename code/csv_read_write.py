@@ -1,7 +1,7 @@
-"""
-reads and writes to csv
+"""Read and write CSV files.
 
-Code by Anna and Raghav
+-----------------------
+Code by Anna Myllyniemi and Raghav Arora, December 2021
 """
 import csv
 from article_classes import Article, Articles
@@ -31,11 +31,11 @@ def read_file(file_path: str) -> Articles:
     return articles
 
 
-def write_file(a: Articles) -> None:
+def write_file(a: Articles, file_path: str) -> None:
     """ Create a csv file containing all the cleaned data from the web scraping.
     """
     # open the file in the write mode
-    with open('dataset.csv', 'w', encoding='UTF8', newline='') as f:
+    with open(file_path, 'w', encoding='UTF8', newline='') as f:
         # create the csv writer
         writer = csv.writer(f)
 
