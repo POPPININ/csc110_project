@@ -33,10 +33,10 @@ from csv_read_write import read_file, write_file
 # creates the dataset including web scraping, cleaning, sentiment analysis, etc. Will take a
 # VERY long time to run. Approximately 5 minutes.
 # Only uncomment if you need to recreate the dataset.
-create_dataset(
+"""create_dataset(
     links_path='../data/links.txt',
     dataset_save_path='../data/dataset.csv'
-)
+)"""
 
 # Load the Dataset CSV file
 articles = read_file('../data/dataset.csv')  # Load cleaned and processed data into Articles object
@@ -46,7 +46,7 @@ write_file(articles, '../data/analyzed_articles.csv')  # save the analyzed artic
 print(articles._articles)
 
 # put code here to run graphing files
-df = pd.read_csv('../data/ananalyzed_articles.csv')
+df = pd.read_csv('../data/analyzed_articles.csv')
 
 # VACCINE PLOT
 vaccine_df = df[df['maintext'].str.contains('vaccine')]
@@ -60,7 +60,8 @@ scatterplot = px.scatter(
     hover_name='title',
     hover_data=['url', 'source_domain'],
 
-    range_y=['March 2020', 'December 2021']
+    range_y=['March 2020', 'December 2021'],
+    title='Vaccine Keyword Scatterplot'
 )
 
 pio.show(scatterplot)
@@ -77,7 +78,8 @@ scatterplot = px.scatter(
     hover_name='title',
     hover_data=['url', 'source_domain'],
 
-    range_y=['March 2020', 'December 2021']
+    range_y=['March 2020', 'December 2021'],
+    title='Mask Keyword Scatterplot'
 )
 
 pio.show(scatterplot)
@@ -94,7 +96,8 @@ scatterplot = px.scatter(
     hover_name='title',
     hover_data=['url', 'source_domain'],
 
-    range_y=['March 2020', 'December 2021']
+    range_y=['March 2020', 'December 2021'],
+    title='Mandate Keyword Scatterplot'
 )
 
 pio.show(scatterplot)
@@ -111,7 +114,8 @@ scatterplot = px.scatter(
     hover_name='title',
     hover_data=['url', 'source_domain'],
 
-    range_y=['March 2020', 'December 2021']
+    range_y=['March 2020', 'December 2021'],
+    title='Restriction Keyword Scatterplot'
 )
 
 pio.show(scatterplot)
@@ -128,7 +132,8 @@ scatterplot = px.scatter(
     hover_name='title',
     hover_data=['url', 'source_domain'],
 
-    range_y=['March 2020', 'December 2021']
+    range_y=['March 2020', 'December 2021'],
+    title='Border Closure Keyword Scatterplot'
 )
 
 pio.show(scatterplot)
