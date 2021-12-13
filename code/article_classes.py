@@ -40,7 +40,7 @@ class Articles:
     """Key-value mapping of Article Title and Author(s) to the corresponding Article object.
 
     Instance Attributes:
-       - articles: a dictionary containing key-value mappings of title to Article
+       - _articles: a dictionary containing key-value mappings of title to Article
        objects.
     """
     _articles: dict[str, Article]

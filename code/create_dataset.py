@@ -12,13 +12,12 @@ from csv_read_write import write_file
 from article_classes import Article, Articles
 
 
-def create_dataset(links_path, dataset_save_path) -> None:
+def create_dataset(links_path: str, dataset_save_path: str) -> None:
     """Calling this function from main.py calls all the necessary functions to scrape the news
-    articles, clean the data, run sentiment analysis, and create the csv file."""
+    articles, clean the data, and save it into a csv file."""
     scraped_arts = NewsPlease.from_file(links_path)
     articles = setup_articles(scraped_arts)
     clean_dataset(articles)
-    articles.run_sentiment()
     write_file(articles, dataset_save_path)
 
 
@@ -44,7 +43,7 @@ def setup_articles(scraped_articles: dict) -> Articles:
 
 
 def clean_dataset(arts: Articles) -> None:
-    """ Mutates and cleans data in arts"""
+    """ Mutates and cleans data in articles."""
     for key in arts.get_keys():
         article = arts.get_article(key)
 
