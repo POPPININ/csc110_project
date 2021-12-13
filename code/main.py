@@ -46,7 +46,7 @@ write_file(articles, '../data/analyzed_articles.csv')  # save the analyzed artic
 print(articles._articles)
 
 # put code here to run graphing files
-df = pd.read_csv('../data/ananalyzed_articles.csv')
+df = pd.read_csv('../data/analyzed_articles.csv')
 
 # VACCINE PLOT
 vaccine_df = df[df['maintext'].str.contains('vaccine')]
