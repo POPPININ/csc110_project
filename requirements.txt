@@ -1,3 +1,5 @@
 nltk
 news-please
 plotly
+pandas
+statsmodels
