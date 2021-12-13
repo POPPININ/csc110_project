@@ -21,6 +21,12 @@ our findings using Plotly.
 Code by Anna Myllyniemi, Raghav Arora, Aarya Vatsa and Diva Hidalgo Luna
 ------------------------------------------------------------------------
 """
+import pandas as pd
+import plotly
+import plotly.io as pio
+import plotly.express as px
+
+
 from create_dataset import create_dataset
 from csv_read_write import read_file, write_file
 
@@ -28,7 +34,7 @@ from csv_read_write import read_file, write_file
 # VERY long time to run. Approximately 5 minutes.
 # Only uncomment if you need to recreate the dataset.
 create_dataset(
-    links_path='../data/links.txt', 
+    links_path='../data/links.txt',
     dataset_save_path='../data/dataset.csv'
 )
 
@@ -40,3 +46,89 @@ write_file(articles, '../data/analyzed_articles.csv')  # save the analyzed artic
 print(articles._articles)
 
 # put code here to run graphing files
+df = pd.read_csv('../data/ananalyzed_articles.csv')
+
+# VACCINE PLOT
+vaccine_df = df[df['maintext'].str.contains('vaccine')]
+
+scatterplot = px.scatter(
+    data_frame=vaccine_df,
+    x='date_publish',
+    y='average_sentence_polarity',
+    color='average_sentence_polarity',
+    color_continuous_scale=px.colors.diverging.Temps,
+    hover_name='title',
+    hover_data=['url', 'source_domain'],
+
+    range_y=['March 2020', 'December 2021']
+)
+
+pio.show(scatterplot)
+
+# MASK PLOT
+mask_df = df[df['maintext'].str.contains('mask')]
+
+scatterplot = px.scatter(
+    data_frame=mask_df,
+    x='date_publish',
+    y='average_sentence_polarity',
+    color='average_sentence_polarity',
+    color_continuous_scale=px.colors.diverging.Temps,
+    hover_name='title',
+    hover_data=['url', 'source_domain'],
+
+    range_y=['March 2020', 'December 2021']
+)
+
+pio.show(scatterplot)
+
+# MANDATE PLOT
+mandate_df = df[df['maintext'].str.contains('mandate')]
+
+scatterplot = px.scatter(
+    data_frame=mandate_df,
+    x='date_publish',
+    y='average_sentence_polarity',
+    color='average_sentence_polarity',
+    color_continuous_scale=px.colors.diverging.Temps,
+    hover_name='title',
+    hover_data=['url', 'source_domain'],
+
+    range_y=['March 2020', 'December 2021']
+)
+
+pio.show(scatterplot)
+
+# RESTRICTION PLOT
+restriction_df = df[df['maintext'].str.contains('restriction')]
+
+scatterplot = px.scatter(
+    data_frame=restriction_df,
+    x='date_publish',
+    y='average_sentence_polarity',
+    color='average_sentence_polarity',
+    color_continuous_scale=px.colors.diverging.Temps,
+    hover_name='title',
+    hover_data=['url', 'source_domain'],
+
+    range_y=['March 2020', 'December 2021']
+)
+
+pio.show(scatterplot)
+
+# BORDER_CLOSURE PLOT
+bc_df = df[df['maintext'].str.contains('border closure' or 'border' or 'closure')]
+
+scatterplot = px.scatter(
+    data_frame=bc_df,
+    x='date_publish',
+    y='average_sentence_polarity',
+    color='average_sentence_polarity',
+    color_continuous_scale=px.colors.diverging.Temps,
+    hover_name='title',
+    hover_data=['url', 'source_domain'],
+
+    range_y=['March 2020', 'December 2021']
+)
+
+pio.show(scatterplot)
