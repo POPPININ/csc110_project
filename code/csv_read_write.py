@@ -6,13 +6,17 @@ Copyright and Usage Information
 Code by Anna Myllyniemi and Raghav Arora, December 2021
 """
 import csv
+import datetime
 from article_classes import Article, Articles
-from datetime import datetime
 
 
 def read_file(file_path: str) -> Articles:
     """Read csv file and populate Articles object where each row in the csv is an item in
     _articles and corresponds to an Article object.
+
+
+    Preconditions:
+        - file_path != ''
     """
     articles = Articles()
     with open(file_path, mode='r', encoding='UTF8') as file:
@@ -20,7 +24,9 @@ def read_file(file_path: str) -> Articles:
         for row in csv_file:
             article = Article(
                 title=row['title'],
-                date_published=datetime.strptime(row['date_publish'], "%Y-%m-%d %H:%M:%S"),
+                date_published=datetime.datetime.strptime(
+                    row['date_publish'], "%Y-%m-%d %H:%M:%S"
+                ),
                 authors=row['authors'],
                 main_text=row['maintext'],
                 source_domain=row['source_domain'],
@@ -35,6 +41,11 @@ def read_file(file_path: str) -> Articles:
 
 def write_file(a: Articles, file_path: str) -> None:
     """ Create a csv file containing all the cleaned data from the web scraping.
+
+
+    Preconditions:
+        - file_path != ''
+        - a._articles != {}
     """
     # open the file in the write mode
     with open(file_path, 'w', encoding='UTF8', newline='') as f:
@@ -56,22 +67,16 @@ def write_file(a: Articles, file_path: str) -> None:
 
 if __name__ == '__main__':
     import python_ta
-    import doctest
     import python_ta.contracts
 
-    doctest.testmod()
     python_ta.contracts.DEBUG_CONTRACTS = False
     python_ta.contracts.check_all_contracts()
-
-    # When you are ready to check your work with python_ta, uncomment the following lines.
-    # (Delete the "#" and space before each line.)
-    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
     python_ta.check_all(config={
-        'allowed-io': ['run_example'],
+        'allowed-io': [],
         'extra-imports': [
             'python_ta.contracts', 'datetime', 'csv', 'article_classes'
         ],
         'max-line-length': 100,
         'max-nested-blocks': 4,
-        'disable': ['R1705', 'C0200']
+        'disable': ['R1705', 'C0200', 'E9998']  # E9998 disabled because we read and write files
     })

@@ -1,3 +1,3 @@
 call python -m venv .venv
 call .venv/Scripts/activate
-call pip install -r requirements.txt
+call pip install -r ./code/requirements.txt

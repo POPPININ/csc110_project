@@ -7,10 +7,10 @@ Copyright and Usage Information
 ===============================
 Code by Anna Myllyniemi and Raghav Arora, December 2021
 """
-from datetime import datetime
+import datetime
 from dataclasses import dataclass
-from analyze_sentiment import calculate_average_polarity
 from typing import Optional
+from analyze_sentiment import calculate_average_polarity
 
 
 @dataclass
@@ -27,6 +27,17 @@ class Article:
        - description: brief description of the news article/OPed
        - average_sentence_polarity: the average polarity of the article based on the mean of the
        polarity of each sentence in the article.
+
+
+    Representation Invariants:
+        - self.title != ''
+        - self.date_published is not None and isinstance(self.date_published, datetime.datetime)
+        - self.authors != []
+        - self.main_text != ''
+        - self.source_domain != ''
+        - self.url != ''
+        - self.description != ''
+        - -1.0 <= self.average_sentence_polarity <= 1.0
     """
     title: str
     date_published: datetime
@@ -41,9 +52,13 @@ class Article:
 class Articles:
     """Key-value mapping of Article Title and Author(s) to the corresponding Article object.
 
-    Instance Attributes:
+    Private Instance Attributes:
        - _articles: a dictionary containing key-value mappings of title to Article
        objects.
+
+
+    Representation Invariants:
+        - self._articles != {}
     """
     _articles: dict[str, Article]
 
@@ -72,16 +87,10 @@ class Articles:
 
 if __name__ == '__main__':
     import python_ta
-    import doctest
     import python_ta.contracts
 
-    doctest.testmod()
     python_ta.contracts.DEBUG_CONTRACTS = False
     python_ta.contracts.check_all_contracts()
-
-    # When you are ready to check your work with python_ta, uncomment the following lines.
-    # (Delete the "#" and space before each line.)
-    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
     python_ta.check_all(config={
         'allowed-io': ['run_example'],
         'extra-imports': [
@@ -89,5 +98,5 @@ if __name__ == '__main__':
         ],
         'max-line-length': 100,
         'max-nested-blocks': 4,
-        'disable': ['R1705', 'C0200']
+        'disable': ['R1705', 'C0200', 'R0902']
     })

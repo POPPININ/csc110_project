@@ -33,7 +33,12 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 def calculate_average_polarity(text: str) -> float:
     """Given a piece of text, tokenize the text into sentences and compute the
-    mean polarity of each sentence."""
+    mean polarity of a sentence.
+
+
+    Preconditions:
+        - text != ''
+    """
     tokens = sent_tokenize(text)
     sum_so_far = 0
 
@@ -47,16 +52,10 @@ def calculate_average_polarity(text: str) -> float:
 
 if __name__ == '__main__':
     import python_ta
-    import doctest
     import python_ta.contracts
 
-    doctest.testmod()
     python_ta.contracts.DEBUG_CONTRACTS = False
     python_ta.contracts.check_all_contracts()
-
-    # When you are ready to check your work with python_ta, uncomment the following lines.
-    # (Delete the "#" and space before each line.)
-    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
     python_ta.check_all(config={
         'allowed-io': ['run_example'],
         'extra-imports': ['python_ta.contracts', 'nltk.tokenize', 'nltk.sentiment.vader'],

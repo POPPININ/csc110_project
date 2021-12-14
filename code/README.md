@@ -17,7 +17,3 @@ import nltk
 nlkt.download('punkt')
 nlkt.download('vader_lexicon')
 ```
-
-## Brief Overview
-
-__TODO__

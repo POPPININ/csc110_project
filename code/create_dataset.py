@@ -2,6 +2,7 @@
 Creates a CSV file containing data scraped from news articles. Scrapes websites using NewsPlease,
 cleans the maintext, and creates the csv file.
 
+
 Copyright and Usage Information
 ===============================
 Code by Anna Myllyniemi, December 2021
@@ -14,7 +15,11 @@ from article_classes import Article, Articles
 
 def create_dataset(links_path: str, dataset_save_path: str) -> None:
     """Calling this function from main.py calls all the necessary functions to scrape the news
-    articles, clean the data, and save it into a csv file."""
+    articles, clean the data, and save it into a csv file.
+
+    Preconditions:
+        - links_path != '' and dataset_save_path != ''
+    """
     scraped_arts = NewsPlease.from_file(links_path)
     articles = setup_articles(scraped_arts)
     clean_dataset(articles)
@@ -24,6 +29,10 @@ def create_dataset(links_path: str, dataset_save_path: str) -> None:
 def setup_articles(scraped_articles: dict) -> Articles:
     """Takes the dictionary from the scraper and creates a populated articles object that will be
     later cleaned.
+
+
+    Preconditions:
+        - scraped_articles != {}
     """
     a = Articles()
     for key in scraped_articles.keys():
@@ -43,7 +52,12 @@ def setup_articles(scraped_articles: dict) -> Articles:
 
 
 def clean_dataset(arts: Articles) -> None:
-    """ Mutates and cleans data in articles."""
+    """ Mutates and cleans data in articles.
+
+
+    Preconditions:
+        - arts._articles != {}
+    """
     for key in arts.get_keys():
         article = arts.get_article(key)
 
@@ -69,6 +83,11 @@ def clean_dataset(arts: Articles) -> None:
 def clean_maintext(article: Article) -> str:
     """ Clean maintext of article by removing content unrelated to the body of the article and
     reformating. Returns the cleaned maintext.
+
+
+    Preconditions:
+        - article is not None
+        - article.main_text != ''
     """
 
     # list of common strings to remove from maintext that are not part of the article body.
@@ -128,7 +147,12 @@ def clean_maintext(article: Article) -> str:
 
 
 def fix_unicode(text: str) -> str:
-    """ Clean characters """
+    """ Clean characters.
+
+
+    Preconditions:
+        - text != ''
+    """
     clean = text.replace('’', '\'')  # replace apostrophes with single quotation
     clean = clean.replace('\n\n', '\n')  # replace two newlines with one newline
     clean = clean.replace('“', '\"')  # replace double quotes with escaped double quotes
@@ -143,16 +167,10 @@ def fix_unicode(text: str) -> str:
 
 if __name__ == '__main__':
     import python_ta
-    import doctest
     import python_ta.contracts
 
-    doctest.testmod()
     python_ta.contracts.DEBUG_CONTRACTS = False
     python_ta.contracts.check_all_contracts()
-
-    # When you are ready to check your work with python_ta, uncomment the following lines.
-    # (Delete the "#" and space before each line.)
-    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
     python_ta.check_all(config={
         'allowed-io': ['run_example'],
         'extra-imports': [

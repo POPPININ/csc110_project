@@ -1,0 +1,16 @@
+# Dependencies for CSC110 project
+
+# Sentiment analysis
+nltk
+
+# Web scraping
+news-please
+
+# Visualization and processing
+plotly
+pandas
+statsmodels
+
+# Testing and code checking
+pytest
+python-ta
